@@ -12,33 +12,30 @@ try:
 except ConnectionError:
     print("Could not connect to MongoDB", file=stderr)
 
+
 class position(Document):
     sporttype = IntField()
     abbreviation =StringField(required=True, max_length=30)
     name = StringField(required=True, max_length=30)
     memo = StringField(required=False, max_length=50)
 
-    def find(Q):
-        return position.objects(Q)
-
-    def findcount(Q):
-        return position.objects(Q).count()
+    # def find(Q):
+    #     return position.objects(Q)
+    #
+    # def findcount(Q):
+    #     return position.objects(Q).count()
 
 def savedataBySportType(sporttype, abbreviationlist, namelist):
     if len(abbreviationlist)!= len(namelist):
         print("two array is not same len!!!")
-    date = position()
+
     for i in range(len(abbreviationlist)):
-        date.sporttype = sporttype
-        date.abbreviation = abbreviationlist[i]
-        date.name = namelist[i]
-        date.memo = None
         filter = Q(abbreviation=abbreviationlist[i], sporttype=sporttype)
         if position.findcount(filter) > 0:
             print("already have this data:"+abbreviationlist[i]+" "+namelist[i])
         else:
             print("save data:" + abbreviationlist[i] + " " + namelist[i])
-            date.save()
+            position(sporttype = sporttype, abbreviation=abbreviationlist[i], name=namelist[i], memo=None).save()
 
 alist = ["C", "SF", "PF", "SG", "PG", "F", "G"]
 nameList=["中锋", "小前锋", "大前锋", "得分后卫", "组织后卫","前锋", "后卫"]

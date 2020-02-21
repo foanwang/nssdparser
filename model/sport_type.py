@@ -2,7 +2,9 @@ import os
 from utils import config
 from mongoengine import *
 from mongoengine.queryset.visitor import Q
+from model import model
 from datetime import datetime
+
 
 os.chdir("..")
 rootpath = os.getcwd()
@@ -12,7 +14,7 @@ try:
 except ConnectionError:
     print("Could not connect to MongoDB", file=stderr)
 
-class sport_type(Document):
+class sport_type(model):
     sport_type_id = IntField()
     name_en = StringField(required=True, max_length=50)
     name_zh = StringField(required=True, max_length=100)
