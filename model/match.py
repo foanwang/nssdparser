@@ -16,7 +16,7 @@ except ConnectionError:
     print("Could not connect to MongoDB", file=stderr)
 
 class match(Document):
-    league_category_id = IntField()
+    leagueid = ObjectIdField()
     year = IntField()
     race_no = IntField()
     sport_type = IntField()
@@ -25,6 +25,7 @@ class match(Document):
     away_info = EmbeddedDocumentField(Match_Team_InfoObject)
     arena_data = EmbeddedDocumentField(Area_InfoObject)
     status = IntField()# 0 未賽 1正在比賽 2已賽
+    referenceId = IntField()#第三方的data id
     update_user = StringField(max_length=50)
     update_time = DateTimeField(required=False)
     create_time = DateTimeField()

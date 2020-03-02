@@ -36,6 +36,7 @@ class player_basic_data(Document):
     city_info = EmbeddedDocumentField(Name_InfoObject)
     property = DictField()
     status = IntField()
+    referenceid = IntField()
     update_user = StringField(max_length=50)
     update_time = DateTimeField(required=False)
     create_time = DateTimeField()

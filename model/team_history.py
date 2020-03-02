@@ -4,7 +4,7 @@ from mongoengine import *
 from mongoengine.queryset.visitor import Q
 from datetime import datetime
 
-os.chdir("..")
+# os.chdir("..")
 rootpath = os.getcwd()
 config = config.configuration(rootpath)
 try:

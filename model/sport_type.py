@@ -2,11 +2,10 @@ import os
 from utils import config
 from mongoengine import *
 from mongoengine.queryset.visitor import Q
-from model import model
 from datetime import datetime
 
 
-os.chdir("..")
+# os.chdir("..")
 rootpath = os.getcwd()
 config = config.configuration(rootpath)
 try:
@@ -14,7 +13,7 @@ try:
 except ConnectionError:
     print("Could not connect to MongoDB", file=stderr)
 
-class sport_type(model):
+class sport_type(Document):
     sport_type_id = IntField()
     name_en = StringField(required=True, max_length=50)
     name_zh = StringField(required=True, max_length=100)
@@ -22,6 +21,15 @@ class sport_type(model):
     update_user = StringField(max_length=50)
     update_time = DateTimeField(required = False)
     create_time = DateTimeField()
+
+    def find(Q):
+        return sport_type.objects(Q)
+
+    def findcount(Q):
+        return sport_type.objects(Q).count()
+
+    def findfirst(Q):
+        return sport_type.objects(Q).first()
 
 basketball = sport_type()
 basketball.sport_type_id =1

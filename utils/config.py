@@ -9,5 +9,6 @@ class configuration():
     def getconfig(self, key, value):
         config = configparser.ConfigParser()
         configPath = os.path.join(self.path, "config", "config.conf")
+        # print("configPath:", configPath)
         config.read(configPath)
         return config[key][value]

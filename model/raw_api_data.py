@@ -2,9 +2,9 @@ import os
 from utils import config
 from mongoengine import *
 from mongoengine.queryset.visitor import Q
-from model.dto import Area
+from model.dto import Arena
 
-os.chdir("..")
+# os.chdir("..")
 rootpath = os.getcwd()
 config = config.configuration(rootpath)
 try:
@@ -12,10 +12,14 @@ try:
 except ConnectionError:
     print("Could not connect to MongoDB", file=stderr)
 
+AreaObject = Arena
 
-AreaObject = Area
+footballapiList=['team_detail', 'match_detail', 'season_stats', 'player_detail', 'season_list', 'match_detail_live', 'team_list', 'season_detail', 'match_even_list', 'match_lineup']
+apilist = ['player_info', 'team_info', 'game_stat', 'getgameinfo', 'game_prediction', 'getschedulebydate']
 
-class TeamDetail(EmbeddedDocument):
+
+
+class Teamdetail(EmbeddedDocument):
     Id = IntField()
     Name = StringField()
     ShortName = StringField()
@@ -32,12 +36,12 @@ class TeamDetail(EmbeddedDocument):
     Photo = StringField()
     PlayerAgeAvg = StringField()
 
-class Raw_data_Team(EmbeddedDocument):
-    TeamInfo = EmbeddedDocumentField(TeamDetail)
+class raw_data_team(EmbeddedDocument):
+    TeamInfo = EmbeddedDocumentField(Teamdetail)
     Players = ListField()
     Coach = DictField()
 
-class Raw_data_Player(EmbeddedDocument):
+class raw_data_player(EmbeddedDocument):
     Id = IntField()
     Name = StringField()
     EnName = StringField()
@@ -50,7 +54,7 @@ class Raw_data_Player(EmbeddedDocument):
     Club = StringField()
     Club_id = StringField()
     PreviousClub = StringField()
-    PastClub =StringField()
+    PastClub = StringField()
     JoinDate = StringField()
     ClubShirtNO = StringField()
     Position = StringField()
@@ -58,9 +62,13 @@ class Raw_data_Player(EmbeddedDocument):
     Experience = StringField()
     Note = StringField()
     Photo = StringField()
+# football  structure
+# class seasonlist(EmbeddedDocument)
 
-class Api_data_raw(Document):
+class raw_api_data(Document):
     api_name = StringField(required=True, max_length=50)
+    match_key = StringField(required=True, max_length=50)
+    source_match_id = StringField(required=True, max_length=50)
     hash = StringField(required=True, max_length=100)
     query_parameter = StringField(required=True, max_length=50)
     source_id = StringField(required=True, max_length= 50)
@@ -70,30 +78,18 @@ class Api_data_raw(Document):
     _header = StringField()
 
     def find(Q):
-        return Api_data_raw.objects(Q)
+        return raw_api_data.objects(Q)
 
     def findcount(Q):
-        return Api_data_raw.objects(Q).count()
+        return raw_api_data.objects(Q).count()
 
-apilist =['player_info', 'team_info', 'game_stat', 'getgameinfo', 'game_prediction', 'getschedulebydate']
-for apiname in apilist:
-    filter = Q(api_name=apiname, sports_type="basketball")
-    if apiname == "team_info":
-        Api_data_raw.raw_data = EmbeddedDocumentField(Raw_data_Team)
-        data = Api_data_raw.find(filter)
-        for doc in data:
-            print(doc.raw_data)
-    if apiname == "player_info":
-        Api_data_raw.raw_data = EmbeddedDocumentField(Raw_data_Player)
-        data = Api_data_raw.find(filter)
-        for doc in data:
-            print(doc.raw_data)
-    if apiname == "player_info":
-        Api_data_raw.raw_data = EmbeddedDocumentField(Raw_data_Player)
-        data = Api_data_raw.find(filter)
-        for doc in data:
-            print(doc.raw_data)
+    def findfirst(Q):
+        return raw_api_data.objects(Q).first()
 
-
-
+# list = set()
+# filter = Q(source_id="7")
+# data = raw_api_data.find(filter)
+# for doc in data:
+#     list.add(doc.api_name)
+# print(list)
 

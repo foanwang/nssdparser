@@ -15,6 +15,7 @@ except ConnectionError:
 class season_type(Document):
     leagueid = StringField()
     sport_type = IntField()
+    season_type = IntField()
     name = StringField(max_length=50)
     memo = StringField()
     update_user = StringField(max_length=50)

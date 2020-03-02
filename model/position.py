@@ -19,11 +19,11 @@ class position(Document):
     name = StringField(required=True, max_length=30)
     memo = StringField(required=False, max_length=50)
 
-    # def find(Q):
-    #     return position.objects(Q)
-    #
-    # def findcount(Q):
-    #     return position.objects(Q).count()
+    def find(Q):
+        return position.objects(Q)
+
+    def findcount(Q):
+        return position.objects(Q).count()
 
 def savedataBySportType(sporttype, abbreviationlist, namelist):
     if len(abbreviationlist)!= len(namelist):

@@ -1,18 +1,25 @@
 from mongoengine import *
-from pymongo import ObjectId
+
+class National_Info(EmbeddedDocument):
+    national_flag = StringField()
+    national_name_en = StringField()
+    national_name_zh = StringField()
 
 class Name_Info(EmbeddedDocument):
-    short_en = StringField(required=True, max_length=50)
-    short_zh = StringField(required=True, max_length=100)
-    name_en = StringField(required=True, max_length=50)
-    name_zh = StringField(required=True, max_length=100)
+    short_en = StringField()
+    short_zh = StringField()
+    name_en = StringField()
+    name_zh = StringField()
 
-class Area(EmbeddedDocument):
-    Name = StringField()
-    Capacity = StringField()
-    Opened = StringField()
-    TicketPrice = StringField()
-    Address = StringField()
+
+class Arena(EmbeddedDocument):
+    name_en = StringField()
+    name_zh = StringField()
+    address_en = StringField()
+    address_zh = StringField()
+    capacity = StringField()
+    opened = StringField()
+    ticketPrice = StringField()
 
 class Coach(EmbeddedDocument):
     name_en = StringField()
@@ -25,9 +32,9 @@ class Team_Info(EmbeddedDocument):
     logo = StringField()
 
 class National_Info(EmbeddedDocument):
-    national_flag = StringField(required=True, max_length=50)
-    national_name_en = StringField(required=True, max_length=50)
-    national_name_zh = StringField(required=True, max_length=50)
+    national_flag = StringField()
+    national_name_en = StringField()
+    national_name_zh = StringField()
 
 class Basketball_Property_Info(EmbeddedDocument):
     position_en = StringField()
