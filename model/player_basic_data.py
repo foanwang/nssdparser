@@ -10,7 +10,7 @@ from model.dto import Basketball_Property_Info as Basketball_Property_InfoObject
 from model.dto import Football_Property_Info as Football_Property_InfoObject
 
 
-os.chdir("..")
+# os.chdir("..")
 rootpath = os.getcwd()
 config = config.configuration(rootpath)
 try:
@@ -20,23 +20,26 @@ except ConnectionError:
 
 class player_basic_data(Document):
     name_info = EmbeddedDocumentField(Name_InfoObject)
-    league_category = ListField()
+    leaguelist = ListField(ObjectIdField())
+    teamlist = ListField(ObjectIdField())
     sport_type = IntField()
-    logo = StringField(required=True, max_length=50)
-    birthday = StringField()
+    logo = StringField()
+    birthday = DateTimeField()
     team_info = EmbeddedDocumentField(Team_InfoObject)
     webside = StringField()
-    hight = StringField()
+    height = StringField()
     weight = StringField()
     national_info = EmbeddedDocumentField(National_InfoObject)
     graduation = StringField()
     draft_selection = IntField()
     draft_team = StringField()
-    draft_year = StringField
+    draft_year = StringField()
     city_info = EmbeddedDocumentField(Name_InfoObject)
     property = DictField()
     status = IntField()
+    shirt_number = IntField()
     referenceid = IntField()
+    memo = StringField()
     update_user = StringField(max_length=50)
     update_time = DateTimeField(required=False)
     create_time = DateTimeField()
@@ -46,3 +49,9 @@ class player_basic_data(Document):
 
     def findcount(Q):
         return player_basic_data.objects(Q).count()
+
+    def findfirst(Q):
+        return player_basic_data.objects(Q).first()
+
+    def findplayerbyreferenceid(referenceid):
+        return player_basic_data.objects(Q(referenceid=referenceid)).first()

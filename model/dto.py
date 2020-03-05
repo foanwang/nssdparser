@@ -27,27 +27,17 @@ class Coach(EmbeddedDocument):
     photo_link = StringField()
 
 class Team_Info(EmbeddedDocument):
-    teamid = StringField()
-    name_info = EmbeddedDocumentField(Name_Info)
+    teamid = ObjectIdField()
+    short_en = StringField()
+    short_zh = StringField()
+    name_en = StringField()
+    name_zh = StringField()
     logo = StringField()
 
 class National_Info(EmbeddedDocument):
     national_flag = StringField()
     national_name_en = StringField()
     national_name_zh = StringField()
-
-class Basketball_Property_Info(EmbeddedDocument):
-    position_en = StringField()
-    position_zh = StringField()
-
-class Football_Property_Info(EmbeddedDocument):
-    position_en = StringField()
-    position_zh = StringField()
-    sec_poistion_en = StringField()
-    sec_poistion_zh = StringField()
-    preferred_foot = IntField()# 1左腳 2右腳
-    ability = StringField()
-    characteristics = StringField()
 
 class Match_Team_Info(EmbeddedDocument):
     teamid = StringField()
@@ -91,3 +81,19 @@ class Football_match_record(EmbeddedDocument):
    overtime = IntField()
    penalty = IntField()
 
+class Basketball_Property_Info():
+    def __init__(self, position_en, position_zh):
+        self.position_en = position_en
+        self.position_zh = position_zh
+
+class Football_Property_Info():
+    def __init__(self, position_en, position_zh, positions_en, positions_zh, sec_poistions_en, sec_poistions_zh, preferred_foot, ability, characteristics):
+        self.position_en = position_en
+        self.position_zh = position_zh
+        self.positions_en = position_en
+        self.positions_zh = position_zh
+        self.sec_poistions_en = sec_poistions_en
+        self.sec_poistions_zh = sec_poistions_zh
+        self.preferred_foot = preferred_foot# 1左腳 2右腳
+        self.ability = ability
+        self.characteristics = characteristics

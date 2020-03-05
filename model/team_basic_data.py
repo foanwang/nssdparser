@@ -23,12 +23,14 @@ except ConnectionError:
 
 
 class team_basic_data(Document):
-    leagueid = ListField(ObjectIdField())
+    leagueidlist = ListField(ObjectIdField())
     sport_type = IntField()
     name_info = EmbeddedDocumentField(Name_Info)
     league_area = IntField()
-    logo = StringField(required=True, max_length=200)
+    logo = StringField(required=False, max_length=200)
     nationalinfo = EmbeddedDocumentField(National_Info)
+    isnational = IntField()
+    website = StringField()
     city_en = StringField(required=True, max_length=50)
     city_zh = StringField(required=True, max_length=50)
     estableish_date = StringField(required=True, max_length=10)
@@ -50,3 +52,6 @@ class team_basic_data(Document):
 
     def findfirst(Q):
         return team_basic_data.objects(Q).first()
+
+    def findTeamListbyObjectId(objectId):
+        return team_basic_data.objects(Q(leagueidlist=objectId))

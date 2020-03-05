@@ -1,6 +1,5 @@
 from pymongo import MongoClient
 import pymongo.errors
-from bson.objectid import ObjectId
 
 class MongoDatabase():
 

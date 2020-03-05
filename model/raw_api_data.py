@@ -86,10 +86,10 @@ class raw_api_data(Document):
     def findfirst(Q):
         return raw_api_data.objects(Q).first()
 
-# list = set()
-# filter = Q(source_id="7")
-# data = raw_api_data.find(filter)
-# for doc in data:
-#     list.add(doc.api_name)
-# print(list)
+    def findlastOrderbyDate(Q):
+        return raw_api_data.objects(Q).order_by("timestamp").first()
+
+# filter = Q(api_name="season_list", source_id="7")
+# data = raw_api_data.findlastOrderbyDate(filter)
+# print(data.to_json())
 
