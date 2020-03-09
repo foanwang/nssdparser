@@ -143,7 +143,6 @@ def footballTeamparser():
 
     # get each league team list from nami
     leagueteamdic = dict()
-    seasnolist = list()
     leaguefilter = Q(api_name="season_list", source_id="7")
     lastleaguedata = raw_api_data.findlastOrderbyDate(leaguefilter)
     competitionlist = lastleaguedata.raw_data.get("competitions")
@@ -162,6 +161,7 @@ def footballTeamparser():
                     # print("seasonid:", seasonid)
                     leaguefilter = Q(api_name="season_detail", query_parameter=str(seasonid))
                     seasondata = raw_api_data.findfirst(leaguefilter)
+
                     # print('seasondata:', seasondata)
                     teamlist = seasondata.raw_data.get("teams")
                     teamidlist = set()

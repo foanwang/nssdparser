@@ -3,11 +3,11 @@ from utils import config
 from mongoengine import *
 from mongoengine.queryset.visitor import Q
 from datetime import datetime
-from model.dto import Area as Area_InfoObject
-from model.dto import Match_team_info as Match_Team_InfoObject
+from model.dto import Arena
+from model.dto import Match_Team_Info
 
 
-os.chdir("..")
+# os.chdir("..")
 rootpath = os.getcwd()
 config = config.configuration(rootpath)
 try:
@@ -17,22 +17,25 @@ except ConnectionError:
 
 class match(Document):
     leagueid = ObjectIdField()
-    year = IntField()
+    year = StringField()
     race_no = IntField()
     sport_type = IntField()
     season_type = IntField()
-    home_info = EmbeddedDocumentField(Match_Team_InfoObject)
-    away_info = EmbeddedDocumentField(Match_Team_InfoObject)
-    arena_data = EmbeddedDocumentField(Area_InfoObject)
+    home_info = EmbeddedDocumentField(Match_Team_Info)
+    away_info = EmbeddedDocumentField(Match_Team_Info)
+    arena_data = EmbeddedDocumentField(Arena)
     status = IntField()# 0 未賽 1正在比賽 2已賽
+    match_time = IntField()
     referenceId = IntField()#第三方的data id
-    update_user = StringField(max_length=50)
+    update_user = StringField(max_length=50, required=False)
     update_time = DateTimeField(required=False)
     create_time = DateTimeField()
 
-
     def find(Q):
-        return player_basic_data.objects(Q)
+        return match.objects(Q)
 
     def findcount(Q):
-        return player_basic_data.objects(Q).count()
+        return match.objects(Q).count()
+
+    def findfirst(Q):
+        return match.objects(Q).first()

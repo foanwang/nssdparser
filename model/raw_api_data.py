@@ -14,7 +14,7 @@ except ConnectionError:
 
 AreaObject = Arena
 
-footballapiList=['team_detail', 'match_detail', 'season_stats', 'player_detail', 'season_list', 'match_detail_live', 'team_list', 'season_detail', 'match_even_list', 'match_lineup']
+footballapiList=['team_detail', 'player_detail', 'season_list', 'season_stats', 'team_list', 'season_detail', 'match_detail_live',  'match_detail', 'match_even_list', 'match_lineup']
 apilist = ['player_info', 'team_info', 'game_stat', 'getgameinfo', 'game_prediction', 'getschedulebydate']
 
 
@@ -85,6 +85,9 @@ class raw_api_data(Document):
 
     def findfirst(Q):
         return raw_api_data.objects(Q).first()
+
+    def findbyapiname(apiname):
+        return raw_api_data.objects(Q(api_name=apiname))
 
     def findlastOrderbyDate(Q):
         return raw_api_data.objects(Q).order_by("timestamp").first()

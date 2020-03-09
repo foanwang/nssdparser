@@ -55,3 +55,6 @@ class team_basic_data(Document):
 
     def findTeamListbyObjectId(objectId):
         return team_basic_data.objects(Q(leagueidlist=objectId))
+
+    def findTeambyreferenceId(referenceId):
+        return team_basic_data.objects(Q(referenceid=referenceId)).first()

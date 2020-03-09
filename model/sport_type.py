@@ -31,20 +31,20 @@ class sport_type(Document):
     def findfirst(Q):
         return sport_type.objects(Q).first()
 
-basketball = sport_type()
-basketball.sport_type_id =1
-basketball.name_en = "basketball"
-basketball.name_zh = "籃球"
-basketball.memo = ""
-basketball.update_time = datetime.now()
-basketball.create_time = datetime.now()
-basketball.save()
-
-football = sport_type()
-football.sport_type_id =2
-football.name_en = "football"
-football.name_zh = "足球"
-football.memo = ""
-football.update_time = datetime.now()
-football.create_time = datetime.now()
-football.save()
+# basketball = sport_type()
+# basketball.sport_type_id =1
+# basketball.name_en = "basketball"
+# basketball.name_zh = "籃球"
+# basketball.memo = ""
+# basketball.update_time = datetime.now()
+# basketball.create_time = datetime.now()
+# basketball.save()
+#
+# football = sport_type()
+# football.sport_type_id =2
+# football.name_en = "football"
+# football.name_zh = "足球"
+# football.memo = ""
+# football.update_time = datetime.now()
+# football.create_time = datetime.now()
+# football.save()

@@ -96,7 +96,7 @@ def basketballplayerparser():
                             print(bpi.__dict__)
 
                         shirt_number = None
-                        if rawdataplayerdata.raw_data.get("ClubShirtNo")!= "    ":
+                        if rawdataplayerdata.raw_data.get("ClubShirtNo")!= "":
                             shirt_number = rawdataplayerdata.raw_data.get("ClubShirtNo")
 
                         playerbasic(
@@ -226,12 +226,15 @@ def footballplayerparser():
                     sec_positions_zh = sec_positions.name
                     # print("pos2", sec_positions_en, sec_positions_zh)
 
-                    fpi = Football_Property_Info(position_en, position_zh, positions_en, positions_zh, sec_positions_en, sec_positions_zh, rawplayerdetaildata.raw_data.get("preferred_foot"), rawplayerdetaildata.raw_data.get("ability"), rawplayerdetaildata.raw_data.get("characteristics"))
+                    fpi = Football_Property_Info(position_en, position_zh, positions_en, positions_zh, sec_positions_en,
+                                                 sec_positions_zh, rawplayerdetaildata.raw_data.get("preferred_foot"),
+                                                 rawplayerdetaildata.raw_data.get("ability"),
+                                                 rawplayerdetaildata.raw_data.get("characteristics"))
                     property = fpi.__dict__
                     # print(fpi.__dict__)
 
                     shirt_number = None
-                    if rawplayer.get("shirt_number") != None:
+                    if rawplayer.get("shirt_number") != "":
                         shirt_number = rawplayer.get("shirt_number")
                         # print("NO:", rawplayer.get("shirt_number"))
 
@@ -265,5 +268,5 @@ def footballplayerparser():
     print("=================league finish===================================")
 
 
-# footballplayerparser()
+footballplayerparser()
 basketballplayerparser()

@@ -53,5 +53,5 @@ class player_basic_data(Document):
     def findfirst(Q):
         return player_basic_data.objects(Q).first()
 
-    def findplayerbyreferenceid(referenceid):
+    def findPlayerbyreferenceid(referenceid):
         return player_basic_data.objects(Q(referenceid=referenceid)).first()
